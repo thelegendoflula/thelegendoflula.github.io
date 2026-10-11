@@ -1,0 +1,204 @@
+{
+ "frames": {
+  "base_5": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 218,
+    "h": 276
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 218,
+    "h": 276
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 218,
+    "h": 276
+   },
+   "pivot": {
+    "x": 0.503,
+    "y": 1.0012
+   }
+  },
+  "base_6": {
+   "frame": {
+    "x": 220,
+    "y": 0,
+    "w": 194,
+    "h": 271
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 194,
+    "h": 271
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 194,
+    "h": 271
+   },
+   "pivot": {
+    "x": 0.428,
+    "y": 0.9986
+   }
+  },
+  "base_8": {
+   "frame": {
+    "x": 416,
+    "y": 0,
+    "w": 170,
+    "h": 270
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 170,
+    "h": 270
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 170,
+    "h": 270
+   },
+   "pivot": {
+    "x": 0.6002,
+    "y": 1.0
+   }
+  },
+  "base_3": {
+   "frame": {
+    "x": 588,
+    "y": 0,
+    "w": 209,
+    "h": 241
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 209,
+    "h": 241
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 209,
+    "h": 241
+   },
+   "pivot": {
+    "x": 0.467,
+    "y": 1.002
+   }
+  },
+  "base_7": {
+   "frame": {
+    "x": 799,
+    "y": 0,
+    "w": 206,
+    "h": 240
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 206,
+    "h": 240
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 206,
+    "h": 240
+   },
+   "pivot": {
+    "x": 0.4954,
+    "y": 1.2729
+   }
+  },
+  "base_1": {
+   "frame": {
+    "x": 1007,
+    "y": 0,
+    "w": 241,
+    "h": 235
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 241,
+    "h": 235
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 241,
+    "h": 235
+   },
+   "pivot": {
+    "x": 0.3813,
+    "y": 1.0815
+   }
+  },
+  "base_4": {
+   "frame": {
+    "x": 1250,
+    "y": 0,
+    "w": 250,
+    "h": 217
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 250,
+    "h": 217
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 250,
+    "h": 217
+   },
+   "pivot": {
+    "x": 0.507,
+    "y": 0.9989
+   }
+  },
+  "base_2": {
+   "frame": {
+    "x": 1502,
+    "y": 0,
+    "w": 252,
+    "h": 175
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 252,
+    "h": 175
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 252,
+    "h": 175
+   },
+   "pivot": {
+    "x": 0.6212,
+    "y": 0.9996
+   }
+  }
+ },
+ "meta": {
+  "image": "aliado_alckmin.png",
+  "size": {
+   "w": 2048,
+   "h": 276
+  },
+  "scale": "1"
+ }
+}

@@ -1,0 +1,204 @@
+{
+ "frames": {
+  "base_5": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 235,
+    "h": 283
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 235,
+    "h": 283
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 235,
+    "h": 283
+   },
+   "pivot": {
+    "x": 0.3723,
+    "y": 0.9985
+   }
+  },
+  "base_6": {
+   "frame": {
+    "x": 237,
+    "y": 0,
+    "w": 196,
+    "h": 270
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 196,
+    "h": 270
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 196,
+    "h": 270
+   },
+   "pivot": {
+    "x": 0.4849,
+    "y": 1.0
+   }
+  },
+  "base_8": {
+   "frame": {
+    "x": 435,
+    "y": 0,
+    "w": 161,
+    "h": 270
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 161,
+    "h": 270
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 270
+   },
+   "pivot": {
+    "x": 0.4808,
+    "y": 1.0
+   }
+  },
+  "base_7": {
+   "frame": {
+    "x": 598,
+    "y": 0,
+    "w": 201,
+    "h": 264
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 201,
+    "h": 264
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 201,
+    "h": 264
+   },
+   "pivot": {
+    "x": 0.6168,
+    "y": 1.1372
+   }
+  },
+  "base_1": {
+   "frame": {
+    "x": 801,
+    "y": 0,
+    "w": 246,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 246,
+    "h": 238
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 246,
+    "h": 238
+   },
+   "pivot": {
+    "x": 0.394,
+    "y": 1.0683
+   }
+  },
+  "base_4": {
+   "frame": {
+    "x": 1049,
+    "y": 0,
+    "w": 193,
+    "h": 233
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 193,
+    "h": 233
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 233
+   },
+   "pivot": {
+    "x": 0.4174,
+    "y": 1.0021
+   }
+  },
+  "base_3": {
+   "frame": {
+    "x": 1244,
+    "y": 0,
+    "w": 198,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 198,
+    "h": 230
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 198,
+    "h": 230
+   },
+   "pivot": {
+    "x": 0.5372,
+    "y": 1.0015
+   }
+  },
+  "base_2": {
+   "frame": {
+    "x": 1444,
+    "y": 0,
+    "w": 226,
+    "h": 196
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 226,
+    "h": 196
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 226,
+    "h": 196
+   },
+   "pivot": {
+    "x": 0.5235,
+    "y": 1.0019
+   }
+  }
+ },
+ "meta": {
+  "image": "aliado_dilma.png",
+  "size": {
+   "w": 2048,
+   "h": 283
+  },
+  "scale": "1"
+ }
+}

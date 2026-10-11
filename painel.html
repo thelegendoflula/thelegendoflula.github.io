@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#0a0612" />
+    <title>Painel do Lula</title>
+    <!-- o painel do dono: quantas pessoas abriram o link, jogaram, ate onde chegaram e quantas jogam agora.
+         Nao tem link em lugar nenhum; abre com a chave no fim do endereco (painel.html#k=...). Os numeros vem da
+         funcao lula_painel (Supabase, projeto code-quest), que so responde com a chave certa. Tudo o que vem do
+         banco entra como texto (textContent), nunca como HTML: a origem e escrita por quem acessa o jogo.
+         A CSP do vercel.json libera o script do fim da pagina pelo sha256: mudou o script, recalcule o hash la -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Londrina+Solid:wght@400;900&display=swap" rel="stylesheet" />
+    <style>
+      :root { --noite: #0a0612; --chapa: #150d22; --chapa-funda: #100918; --borda: #2c1d40; --ouro: #ffd23a; --papel: #f2e4c4;
+        --mudo: #b9a9c9; --tinta: #140b08; --vermelho: #e23a3a; --s-abriram: #4f7fd3; --s-jogaram: #d9443d;
+        --gutter: max(16px, env(safe-area-inset-left), env(safe-area-inset-right)); --vao: clamp(12px, 2.4vw, 22px);
+        --cartaz: 'Londrina Solid', Impact, sans-serif; --texto: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+        color-scheme: dark; }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: var(--noite); }
+      body { margin: 0; min-height: 100vh; background: var(--noite); color: var(--papel); font: 400 16px/1.45 var(--texto); }
+      .painel { max-width: 1180px; margin: 0 auto; padding: max(18px, env(safe-area-inset-top)) var(--gutter) 40px; }
+      h1, h2, p { margin: 0; }
+      [hidden] { display: none !important; }
+
+      /* o topo: o nome do jogo pequeno, PAINEL grande, e a hora da ultima leitura */
+      .topo { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 6px 18px;
+        padding-bottom: 14px; margin-bottom: var(--vao); border-bottom: 4px solid var(--vermelho); }
+      .marca { font: 900 15px/1 var(--cartaz); letter-spacing: .14em; color: var(--mudo); }
+      .topo h1 { font: 900 clamp(40px, 8vw, 64px)/.9 var(--cartaz); color: var(--ouro); text-shadow: 0 4px 0 var(--tinta); }
+      .estado { font-size: 14px; color: var(--mudo); }
+      .estado.ruim { color: #ffb3ad; }
+
+      /* a porta: sem a chave certa, so o campo */
+      .porta { max-width: 30rem; margin: 10vh auto 0; padding: 22px; background: var(--chapa); border: 3px solid var(--ouro);
+        box-shadow: 6px 6px 0 #000; }
+      .porta h2 { font: 900 30px/1 var(--cartaz); color: var(--ouro); margin-bottom: 8px; }
+      .porta label { display: block; margin: 14px 0 6px; font-weight: 700; }
+      .porta-linha { display: flex; gap: 10px; flex-wrap: wrap; }
+      .porta input { flex: 1 1 12rem; min-width: 0; min-height: 48px; padding: 0 12px; font: 400 16px var(--texto); color: var(--papel);
+        background: var(--chapa-funda); border: 2px solid var(--borda); border-radius: 4px; }
+      .porta input:focus { outline: none; border-color: var(--ouro); }
+      .porta-erro { margin-top: 10px; color: #ffb3ad; font-weight: 700; }
+      .botao { min-height: 48px; padding: 0 20px; font: 900 22px/1 var(--cartaz); letter-spacing: .04em; color: var(--tinta); background: var(--ouro);
+        border: 3px solid var(--tinta); border-radius: 4px; box-shadow: 0 5px 0 var(--tinta); cursor: pointer;
+        transition: transform 80ms ease-out, box-shadow 80ms ease-out; }
+      .botao:hover { background: #ffe066; }
+      .botao:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--tinta); }
+      .botao:focus-visible, .coluna:focus-visible, summary:focus-visible { outline: 3px solid var(--papel); outline-offset: 3px; }
+
+      /* a grade: JOGANDO AGORA grande a esquerda, os totais a direita; embaixo os graficos */
+      .grade { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--vao); }
+      .grade > * { grid-column: 1 / -1; }
+      .chapa { min-width: 0; background: var(--chapa); border: 2px solid var(--borda); border-radius: 6px; padding: clamp(14px, 2.4vw, 22px); }
+      @media (min-width: 860px) {
+        .agora { grid-column: 1 / 6; }
+        .totais { grid-column: 6 / -1; }
+        .capitulos { grid-column: 1 / 8; }
+        .aparelhos { grid-column: 8 / -1; }
+        .origens { grid-column: 8 / -1; }
+        .dias { grid-column: 1 / 8; }
+      }
+
+      .agora { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 230px;
+        border: 3px solid var(--ouro); box-shadow: 7px 7px 0 #000; }
+      .ao-vivo { align-self: flex-start; padding: 4px 8px 3px; font: 900 14px/1 var(--cartaz); letter-spacing: .12em; color: #fff;
+        background: var(--vermelho); border: 2px solid var(--tinta); }
+      .agora .rotulo-grande { margin: 10px 0 0; font: 900 clamp(26px, 4vw, 34px)/1 var(--cartaz); letter-spacing: .03em; color: var(--papel); }
+      .gigante { font: 900 clamp(96px, 22vw, 168px)/.86 var(--cartaz); color: var(--ouro); font-variant-numeric: tabular-nums;
+        text-shadow: 0 6px 0 var(--tinta), 6px 6px 0 var(--tinta); }
+      .agora .nota { color: var(--mudo); }
+
+      .totais { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--vao); padding: 0; background: none; border: 0; }
+      .total { display: flex; flex-direction: column; gap: 4px; }
+      .total .rotulo { font: 900 15px/1.1 var(--cartaz); letter-spacing: .1em; color: var(--mudo); }
+      .total .numero { font: 900 clamp(40px, 7vw, 56px)/1 var(--cartaz); color: var(--papel); font-variant-numeric: tabular-nums; }
+      .total .nota { font-size: 14px; color: var(--mudo); }
+      .total.hoje { border-color: #5a3b2a; background: #1d1220; }
+      .total.hoje .numero { color: var(--ouro); }
+
+      .chapa h2 { display: flex; align-items: baseline; gap: 10px; font: 900 clamp(22px, 3.4vw, 28px)/1.05 var(--cartaz); color: var(--ouro);
+        margin-bottom: 4px; }
+      .chapa h2::before { content: ''; flex: none; width: 10px; height: .7em; background: var(--vermelho); }
+      .explica { font-size: 14px; color: var(--mudo); margin-bottom: 14px; max-width: 42em; }
+      .vazio { color: var(--mudo); font-style: italic; }
+
+      /* barras deitadas: um so tom (o ouro), o numero em texto ao lado */
+      .barras { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+      .barra { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; }
+      .barra-nome { font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
+      .barra-nome small { font-weight: 400; color: var(--mudo); }
+      .barra-num { font: 900 22px/1 var(--cartaz); font-variant-numeric: tabular-nums; text-align: right; }
+      .barra-trilho { grid-column: 1 / -1; height: 14px; background: var(--chapa-funda); border-radius: 0 4px 4px 0; }
+      .barra-cheia { display: block; height: 100%; width: calc(var(--v, 0) * 100%); min-width: 2px; background: var(--ouro); border-radius: 0 4px 4px 0; }
+
+      /* por dia: cada coluna e o total que abriu; a parte vermelha de baixo, quem jogou */
+      .legenda { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 10px; font-size: 14px; }
+      .legenda span { display: inline-flex; align-items: center; gap: 6px; }
+      .legenda i { width: 12px; height: 12px; border-radius: 2px; }
+      .leg-abriram { background: var(--s-abriram); }
+      .leg-jogaram { background: var(--s-jogaram); }
+      .grafico { position: relative; padding-top: 22px; }
+      .teto { position: absolute; top: 0; left: 0; font-size: 12px; color: var(--mudo); }
+      .colunas { display: flex; align-items: flex-end; gap: 2px; height: 180px; border-bottom: 2px solid var(--borda);
+        background: linear-gradient(var(--borda), var(--borda)) 0 0 / 100% 1px no-repeat; }
+      .coluna { flex: 1 1 0; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0; margin: 0;
+        background: none; border: 0; cursor: pointer; }
+      .coluna:hover .so-abriu, .coluna.marcada .so-abriu { filter: brightness(1.25); }
+      .coluna:hover .jogou, .coluna.marcada .jogou { filter: brightness(1.2); }
+      .so-abriu, .jogou { min-height: 2px; }
+      .so-abriu { display: block; background: var(--s-abriram); border-radius: 3px 3px 0 0; }
+      .jogou { display: block; background: var(--s-jogaram); }
+      .so-abriu + .jogou { border-top: 2px solid var(--chapa); }
+      .jogou:first-child { border-radius: 3px 3px 0 0; }
+      .eixo { display: flex; gap: 2px; margin-top: 6px; font-size: 12px; color: var(--mudo); }
+      .eixo span { flex: 1 1 0; min-width: 0; text-align: center; white-space: nowrap; overflow: visible; }
+      .tabela { margin-top: 14px; font-size: 14px; }
+      .tabela summary { cursor: pointer; color: var(--mudo); }
+      .tabela table { width: 100%; margin-top: 8px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+      .tabela th, .tabela td { padding: 4px 6px; text-align: right; border-bottom: 1px solid var(--borda); }
+      .tabela th:first-child, .tabela td:first-child { text-align: left; }
+
+      #dica { position: fixed; z-index: 5; max-width: 15rem; padding: 8px 10px; font-size: 14px; line-height: 1.35; pointer-events: none;
+        background: var(--tinta); color: var(--papel); border: 2px solid var(--ouro); box-shadow: 4px 4px 0 #000; }
+      #dica b { font-family: var(--cartaz); font-weight: 900; font-size: 17px; color: var(--ouro); }
+
+      .rodape { margin-top: calc(var(--vao) * 1.6); font-size: 13px; color: var(--mudo); }
+      @media (prefers-reduced-motion: reduce) { .botao { transition: none; } }
+    </style>
+  </head>
+  <body>
+    <main class="painel">
+      <header class="topo">
+        <div>
+          <p class="marca">THE LEGEND OF LULA</p>
+          <h1>PAINEL</h1>
+        </div>
+        <p class="estado" id="estado" aria-live="polite">abrindo…</p>
+      </header>
+
+      <section class="porta" id="porta" aria-labelledby="porta-titulo" hidden>
+        <h2 id="porta-titulo">Chave do painel</h2>
+        <p>Os números só abrem com a chave. Cole aqui a que veio junto com o endereço.</p>
+        <form id="porta-form" autocomplete="off">
+          <label for="porta-chave">Chave</label>
+          <div class="porta-linha">
+            <input id="porta-chave" name="chave" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" required />
+            <button class="botao" type="submit">ABRIR</button>
+          </div>
+          <p class="porta-erro" id="porta-erro" role="alert" hidden>Essa chave não abre o painel.</p>
+        </form>
+      </section>
+
+      <div class="grade" id="dados" hidden>
+        <section class="chapa agora" aria-labelledby="t-agora">
+          <p class="ao-vivo">AO VIVO</p>
+          <h2 class="rotulo-grande" id="t-agora">JOGANDO AGORA</h2>
+          <p class="gigante" id="v-jogando">0</p>
+          <p class="nota"><span id="v-agora">0</span> com o jogo aberto nos últimos 2 minutos</p>
+        </section>
+
+        <section class="totais" aria-label="Totais">
+          <div class="chapa total">
+            <p class="rotulo">ABRIRAM O LINK</p>
+            <p class="numero" id="v-abriram">0</p>
+            <p class="nota" id="n-acessos">0 acessos</p>
+          </div>
+          <div class="chapa total">
+            <p class="rotulo">JOGARAM</p>
+            <p class="numero" id="v-jogaram">0</p>
+            <p class="nota" id="n-jogaram">de quem abriu</p>
+          </div>
+          <div class="chapa total">
+            <p class="rotulo">ZERARAM</p>
+            <p class="numero" id="v-zeraram">0</p>
+            <p class="nota" id="n-zeraram">de quem jogou</p>
+          </div>
+          <div class="chapa total hoje">
+            <p class="rotulo">HOJE</p>
+            <p class="numero" id="v-hoje">0</p>
+            <p class="nota" id="n-hoje">abriram · 0 jogaram</p>
+          </div>
+        </section>
+
+        <section class="chapa capitulos" aria-labelledby="t-capitulos">
+          <h2 id="t-capitulos">ATÉ ONDE CHEGARAM</h2>
+          <p class="explica">O capítulo mais longe que cada pessoa começou numa visita. Quem voltou outro dia conta de novo no capítulo
+            em que parou da outra vez.</p>
+          <ol class="barras" id="l-capitulos"></ol>
+        </section>
+
+        <section class="chapa aparelhos" aria-labelledby="t-aparelhos">
+          <h2 id="t-aparelhos">POR APARELHO</h2>
+          <p class="explica">Pessoas que abriram o link, por aparelho.</p>
+          <ol class="barras" id="l-aparelhos"></ol>
+        </section>
+
+        <section class="chapa dias" aria-labelledby="t-dias">
+          <h2 id="t-dias">POR DIA</h2>
+          <p class="explica">Os últimos 30 dias, no horário de Brasília. Toque numa coluna para ver os números.</p>
+          <div class="legenda" aria-hidden="true">
+            <span><i class="leg-abriram"></i>abriram (a coluna inteira)</span>
+            <span><i class="leg-jogaram"></i>jogaram (a parte de baixo)</span>
+          </div>
+          <div class="grafico">
+            <p class="teto" id="v-teto"></p>
+            <div class="colunas" id="l-dias" role="list"></div>
+            <div class="eixo" id="l-eixo" aria-hidden="true"></div>
+          </div>
+          <details class="tabela">
+            <summary>ver os números de cada dia</summary>
+            <table>
+              <thead><tr><th scope="col">Dia</th><th scope="col">Abriram</th><th scope="col">Jogaram</th></tr></thead>
+              <tbody id="l-tabela"></tbody>
+            </table>
+          </details>
+        </section>
+
+        <section class="chapa origens" aria-labelledby="t-origens">
+          <h2 id="t-origens">DE ONDE VIERAM</h2>
+          <p class="explica">Acessos por origem: o site de onde a pessoa clicou, ou o utm_source do link. Direto é link colado ou aberto
+            de dentro de um aplicativo (o WhatsApp não diz de onde veio).</p>
+          <ol class="barras" id="l-origens"></ol>
+        </section>
+      </div>
+
+      <p class="rodape">Contagem anônima: um número aleatório por navegador, sem nome e sem IP. Atualiza sozinho a cada 30 segundos.</p>
+    </main>
+    <div id="dica" role="tooltip" hidden></div>
+    <script>
+      'use strict';
+      (function () {
+        var URL_PAINEL = 'https://pqytpynhhknigmncgufx.supabase.co/rest/v1/rpc/lula_painel';
+        var CHAVE_PUBLICA = 'sb_publishable_9oL2aAxCVW3AtGmV1SnhnQ_2e7NP6tC';
+        var A_CADA_MS = 30000;
+        var DIAS = 30;
+        var FUSO = 'America/Sao_Paulo';
+        var CAPITULOS = { 1: 'O Metalúrgico', 2: 'O Operário no Planalto', 3: 'A Primeira Presidenta', 4: 'O Eleito', 5: 'O Presidente',
+          6: 'Vida Além do Trabalho', 7: 'A Luta Continua' };
+        var APARELHOS = { iphone: 'iPhone', android: 'Android', ipad: 'iPad', 'android-tablet': 'Tablet Android', 'pc-windows': 'PC com Windows',
+          'pc-mac': 'Mac', 'pc-linux': 'PC com Linux', chromebook: 'Chromebook', outro: 'Outro', '?': 'Não identificado' };
+        var ORIGENS = { direto: 'Direto', 'l.instagram.com': 'Instagram', 'instagram.com': 'Instagram', instagram: 'Instagram',
+          't.co': 'X (Twitter)', 'x.com': 'X (Twitter)', 'twitter.com': 'X (Twitter)', 'facebook.com': 'Facebook', 'm.facebook.com': 'Facebook',
+          'l.facebook.com': 'Facebook', 'lm.facebook.com': 'Facebook', 'google.com': 'Google', 'google.com.br': 'Google',
+          whatsapp: 'WhatsApp', 'wa.me': 'WhatsApp', 'web.whatsapp.com': 'WhatsApp', 'youtube.com': 'YouTube', 'm.youtube.com': 'YouTube',
+          'tiktok.com': 'TikTok', 'threads.net': 'Threads', 'bsky.app': 'Bluesky' };
+        var fmt = new Intl.NumberFormat('pt-BR');
+        var hora = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        var chave = '';
+        var ultima = 0;
+        var pedindo = false;
+        var $ = function (id) { return document.getElementById(id); };
+
+        function num(x) { var n = Number(x); return Number.isFinite(n) && n > 0 ? n : 0; }
+        function lista(x) { return Array.isArray(x) ? x : []; }
+        function texto(el, t) { el.textContent = t; return el; }
+        function novo(tag, classe, t) { var el = document.createElement(tag); if (classe) el.className = classe; if (t != null) el.textContent = t; return el; }
+        function porcento(parte, todo) { return todo > 0 ? Math.round((parte / todo) * 100) + '%' : '—'; }
+
+        // ---------------------------------------------------------------- a chave
+        function chaveDoEndereco() {
+          try { return (new URLSearchParams(location.hash.slice(1)).get('k') || '').trim(); } catch (e) { return ''; }
+        }
+        function mostrarPorta(errou) {
+          $('dados').hidden = true;
+          $('porta').hidden = false;
+          $('porta-erro').hidden = !errou;
+          texto($('estado'), errou ? 'chave errada' : 'falta a chave');
+          $('porta-chave').focus();
+        }
+        $('porta-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var k = $('porta-chave').value.trim();
+          if (!k) return;
+          history.replaceState(null, '', '#k=' + encodeURIComponent(k));
+          abrir();
+        });
+        window.addEventListener('hashchange', abrir);
+
+        // ---------------------------------------------------------------- a leitura
+        function pedir() {
+          return fetch(URL_PAINEL, {
+            method: 'POST', cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer',
+            headers: { apikey: CHAVE_PUBLICA, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_chave: chave })
+          }).then(function (r) {
+            if (!r.ok) throw new Error('resposta ' + r.status);
+            return r.json();
+          });
+        }
+        function ler() {
+          if (!chave || pedindo) return;
+          pedindo = true;
+          pedir().then(function (d) {
+            if (!d || typeof d !== 'object' || d.erro) { chave = ''; history.replaceState(null, '', location.pathname); mostrarPorta(true); return; }
+            ultima = Date.now();
+            $('porta').hidden = true;
+            $('dados').hidden = false;
+            desenhar(d);
+            var est = texto($('estado'), 'atualizado às ' + hora.format(new Date()));
+            est.classList.remove('ruim');
+          }).catch(function () {
+            var est = texto($('estado'), 'sem conexão com o banco: tento de novo em 30 s');
+            est.classList.add('ruim');
+          }).then(function () { pedindo = false; });
+        }
+        function abrir() {
+          chave = chaveDoEndereco();
+          if (!chave) { mostrarPorta(false); return; }
+          texto($('estado'), 'lendo…');
+          ler();
+        }
+        setInterval(function () { if (document.visibilityState === 'visible') ler(); }, A_CADA_MS);
+        document.addEventListener('visibilitychange', function () {
+          if (document.visibilityState === 'visible' && Date.now() - ultima >= A_CADA_MS) ler();
+        });
+
+        // ---------------------------------------------------------------- o desenho
+        function desenhar(d) {
+          var abriram = num(d.abriram), jogaram = num(d.jogaram), zeraram = num(d.zeraram);
+          texto($('v-jogando'), fmt.format(num(d.jogando_agora)));
+          texto($('v-agora'), fmt.format(num(d.agora)));
+          texto($('v-abriram'), fmt.format(abriram));
+          texto($('n-acessos'), fmt.format(num(d.acessos)) + ' acessos no total');
+          texto($('v-jogaram'), fmt.format(jogaram));
+          texto($('n-jogaram'), porcento(jogaram, abriram) + ' de quem abriu');
+          texto($('v-zeraram'), fmt.format(zeraram));
+          texto($('n-zeraram'), porcento(zeraram, jogaram) + ' de quem jogou');
+          texto($('v-hoje'), fmt.format(num(d.hoje_abriram)));
+          texto($('n-hoje'), 'abriram · ' + fmt.format(num(d.hoje_jogaram)) + ' jogaram');
+          barras($('l-capitulos'), linhasCapitulos(lista(d.capitulos)), 'Ninguém começou um capítulo ainda.');
+          barras($('l-aparelhos'), juntar(lista(d.dispositivos), 'dispositivo', 'pessoas', APARELHOS), 'Ninguém abriu ainda.');
+          barras($('l-origens'), juntar(lista(d.origens), 'origem', 'acessos', ORIGENS), 'Nenhum acesso ainda.');
+          dias(lista(d.dias));
+        }
+
+        /** do capitulo 1 ao mais alto (pelo menos o 7), com zero onde ninguem parou */
+        function linhasCapitulos(itens) {
+          var por = {}, maior = 7;
+          itens.forEach(function (i) { var c = Math.floor(Number(i && i.capitulo)); if (c >= 1) { por[c] = num(i.pessoas); maior = Math.max(maior, c); } });
+          var linhas = [];
+          for (var c = 1; c <= maior; c++) linhas.push({ nome: 'CAP. ' + c, sub: CAPITULOS[c] || '', valor: por[c] || 0 });
+          return linhas;
+        }
+
+        /** junta os nomes que sao o mesmo lugar (l.instagram.com e instagram.com) e ordena do maior */
+        function juntar(itens, campo, medida, nomes) {
+          var por = {};
+          itens.forEach(function (i) {
+            var bruto = String((i && i[campo]) || '?').slice(0, 60);
+            var nome = nomes[bruto] || bruto;
+            por[nome] = (por[nome] || 0) + num(i && i[medida]);
+          });
+          return Object.keys(por).map(function (n) { return { nome: n, sub: '', valor: por[n] }; })
+            .sort(function (a, b) { return b.valor - a.valor; });
+        }
+
+        function barras(ol, linhas, vazio) {
+          ol.replaceChildren();
+          var maior = linhas.reduce(function (m, l) { return Math.max(m, l.valor); }, 0);
+          if (!linhas.length || maior === 0 && linhas.every(function (l) { return !l.sub; })) { ol.append(novo('li', 'vazio', vazio)); return; }
+          linhas.forEach(function (l) {
+            var li = novo('li', 'barra');
+            var nome = novo('span', 'barra-nome', l.nome);
+            if (l.sub) nome.append(' ', novo('small', null, l.sub));
+            var trilho = novo('span', 'barra-trilho');
+            var cheia = novo('span', 'barra-cheia');
+            cheia.style.setProperty('--v', maior > 0 ? String(l.valor / maior) : '0');
+            if (l.valor === 0) cheia.style.minWidth = '0';
+            trilho.append(cheia);
+            li.append(nome, novo('span', 'barra-num', fmt.format(l.valor)), trilho);
+            ol.append(li);
+          });
+        }
+
+        // ---------------------------------------------------------------- por dia
+        /** 'AAAA-MM-DD' de hoje no horario de Brasilia (o banco agrupa o dia nesse fuso) */
+        function hojeEmBrasilia() {
+          return new Intl.DateTimeFormat('en-CA', { timeZone: FUSO, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+        }
+        function trintaDias() {
+          var p = hojeEmBrasilia().split('-').map(Number);
+          var base = Date.UTC(p[0], p[1] - 1, p[2]);
+          var dias = [];
+          for (var k = DIAS - 1; k >= 0; k--) dias.push(new Date(base - k * 86400000).toISOString().slice(0, 10));
+          return dias;
+        }
+        var SEMANA = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+        function rotuloDia(iso, comSemana) {
+          var p = iso.split('-').map(Number);
+          var dm = p[2] + '/' + p[1];
+          return comSemana ? SEMANA[new Date(Date.UTC(p[0], p[1] - 1, p[2])).getUTCDay()] + ' ' + dm : dm;
+        }
+
+        function dias(itens) {
+          var por = {};
+          itens.forEach(function (i) { if (i && typeof i.dia === 'string') por[i.dia.slice(0, 10)] = { a: num(i.abriram), j: num(i.jogaram) }; });
+          var lista30 = trintaDias().map(function (dia) { var v = por[dia] || { a: 0, j: 0 }; return { dia: dia, a: v.a, j: Math.min(v.j, v.a) }; });
+          var teto = lista30.reduce(function (m, d) { return Math.max(m, d.a); }, 0);
+          texto($('v-teto'), teto > 0 ? 'máximo: ' + fmt.format(teto) + ' num dia' : 'sem acessos nestes 30 dias');
+          var colunas = $('l-dias'), eixo = $('l-eixo'), tabela = $('l-tabela');
+          colunas.replaceChildren(); eixo.replaceChildren(); tabela.replaceChildren();
+          lista30.forEach(function (d, k) {
+            var c = novo('button', 'coluna');
+            c.type = 'button';
+            c.setAttribute('role', 'listitem');
+            c.setAttribute('aria-label', rotuloDia(d.dia, true) + ': ' + d.a + ' abriram, ' + d.j + ' jogaram');
+            c.dataset.dia = rotuloDia(d.dia, true);
+            c.dataset.a = String(d.a);
+            c.dataset.j = String(d.j);
+            var alto = function (n) { return teto > 0 ? (n / teto) * 100 + '%' : '0'; };
+            if (d.a - d.j > 0) { var s = novo('span', 'so-abriu'); s.style.height = alto(d.a - d.j); c.append(s); }
+            if (d.j > 0) { var j = novo('span', 'jogou'); j.style.height = alto(d.j); c.append(j); }
+            colunas.append(c);
+            // o eixo: hoje e, para tras, um a cada 7 dias
+            var marca = (DIAS - 1 - k) % 7 === 0;
+            eixo.append(novo('span', null, marca ? (k === DIAS - 1 ? 'hoje' : rotuloDia(d.dia)) : ''));
+          });
+          lista30.slice().reverse().forEach(function (d) {
+            var tr = novo('tr');
+            tr.append(novo('td', null, rotuloDia(d.dia, true)), novo('td', null, fmt.format(d.a)), novo('td', null, fmt.format(d.j)));
+            tabela.append(tr);
+          });
+        }
+
+        // a dica de cada coluna: o mouse em cima, o foco do teclado ou o toque
+        var dica = $('dica'), marcada = null;
+        function mostrarDica(c) {
+          if (marcada) marcada.classList.remove('marcada');
+          marcada = c;
+          c.classList.add('marcada');
+          dica.replaceChildren(novo('b', null, c.dataset.dia), document.createElement('br'),
+            fmt.format(Number(c.dataset.a)) + ' abriram · ' + fmt.format(Number(c.dataset.j)) + ' jogaram');
+          dica.hidden = false;
+          var r = c.getBoundingClientRect(), w = dica.offsetWidth, h = dica.offsetHeight;
+          var x = Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2));
+          var y = Math.max(8, r.top - h - 10);
+          dica.style.left = x + 'px';
+          dica.style.top = y + 'px';
+        }
+        function esconderDica() { dica.hidden = true; if (marcada) marcada.classList.remove('marcada'); marcada = null; }
+        var colunasEl = $('l-dias');
+        colunasEl.addEventListener('pointerover', function (e) { var c = e.target.closest('.coluna'); if (c) mostrarDica(c); });
+        colunasEl.addEventListener('click', function (e) { var c = e.target.closest('.coluna'); if (c) mostrarDica(c); });
+        colunasEl.addEventListener('focusin', function (e) { var c = e.target.closest('.coluna'); if (c) mostrarDica(c); });
+        colunasEl.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') esconderDica(); });
+        colunasEl.addEventListener('focusout', esconderDica);
+        window.addEventListener('scroll', esconderDica, { passive: true });
+        // o iPhone nao da foco ao botao tocado: um toque fora das colunas fecha a dica
+        document.addEventListener('pointerdown', function (e) { if (!(e.target instanceof Element) || !e.target.closest('.coluna')) esconderDica(); });
+
+        abrir();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,204 @@
+{
+ "frames": {
+  "base_3": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 208,
+    "h": 292
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 208,
+    "h": 292
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 208,
+    "h": 292
+   },
+   "pivot": {
+    "x": 0.489,
+    "y": 0.9999
+   }
+  },
+  "base_5": {
+   "frame": {
+    "x": 210,
+    "y": 0,
+    "w": 219,
+    "h": 276
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 219,
+    "h": 276
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 276
+   },
+   "pivot": {
+    "x": 0.4243,
+    "y": 1.001
+   }
+  },
+  "base_6": {
+   "frame": {
+    "x": 431,
+    "y": 0,
+    "w": 185,
+    "h": 270
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 185,
+    "h": 270
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 185,
+    "h": 270
+   },
+   "pivot": {
+    "x": 0.448,
+    "y": 1.0
+   }
+  },
+  "base_8": {
+   "frame": {
+    "x": 618,
+    "y": 0,
+    "w": 161,
+    "h": 270
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 161,
+    "h": 270
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 161,
+    "h": 270
+   },
+   "pivot": {
+    "x": 0.4953,
+    "y": 1.0
+   }
+  },
+  "base_7": {
+   "frame": {
+    "x": 781,
+    "y": 0,
+    "w": 186,
+    "h": 246
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 186,
+    "h": 246
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 186,
+    "h": 246
+   },
+   "pivot": {
+    "x": 0.5233,
+    "y": 1.2265
+   }
+  },
+  "base_1": {
+   "frame": {
+    "x": 969,
+    "y": 0,
+    "w": 245,
+    "h": 238
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 245,
+    "h": 238
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 245,
+    "h": 238
+   },
+   "pivot": {
+    "x": 0.3819,
+    "y": 1.0593
+   }
+  },
+  "base_4": {
+   "frame": {
+    "x": 1216,
+    "y": 0,
+    "w": 230,
+    "h": 212
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 230,
+    "h": 212
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 230,
+    "h": 212
+   },
+   "pivot": {
+    "x": 0.4914,
+    "y": 1.0011
+   }
+  },
+  "base_2": {
+   "frame": {
+    "x": 1448,
+    "y": 0,
+    "w": 236,
+    "h": 176
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 236,
+    "h": 176
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 236,
+    "h": 176
+   },
+   "pivot": {
+    "x": 0.5933,
+    "y": 0.9989
+   }
+  }
+ },
+ "meta": {
+  "image": "aliado_haddad.png",
+  "size": {
+   "w": 2048,
+   "h": 292
+  },
+  "scale": "1"
+ }
+}

@@ -679,13 +679,113 @@
     "w": 256,
     "h": 256
    }
+  },
+  "janones": {
+   "frame": {
+    "x": 1548,
+    "y": 1032,
+    "w": 256,
+    "h": 256
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 256,
+    "h": 256
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 256,
+    "h": 256
+   }
+  },
+  "camilo": {
+   "frame": {
+    "x": 0,
+    "y": 1290,
+    "w": 256,
+    "h": 256
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 256,
+    "h": 256
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 256,
+    "h": 256
+   }
+  },
+  "fonteles": {
+   "frame": {
+    "x": 258,
+    "y": 1290,
+    "w": 256,
+    "h": 256
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 256,
+    "h": 256
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 256,
+    "h": 256
+   }
+  },
+  "cortez": {
+   "frame": {
+    "x": 516,
+    "y": 1290,
+    "w": 256,
+    "h": 256
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 256,
+    "h": 256
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 256,
+    "h": 256
+   }
+  },
+  "tebet": {
+   "frame": {
+    "x": 774,
+    "y": 1290,
+    "w": 256,
+    "h": 256
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 256,
+    "h": 256
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 256,
+    "h": 256
+   }
   }
  },
  "meta": {
   "image": "retratos.png",
   "size": {
    "w": 1804,
-   "h": 1288
+   "h": 1546
   },
   "scale": "1"
  }

@@ -1,0 +1,204 @@
+{
+ "frames": {
+  "base_5": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 176,
+    "h": 274
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 176,
+    "h": 274
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 176,
+    "h": 274
+   },
+   "pivot": {
+    "x": 0.539,
+    "y": 1.0009
+   }
+  },
+  "base_8": {
+   "frame": {
+    "x": 178,
+    "y": 0,
+    "w": 147,
+    "h": 270
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 147,
+    "h": 270
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 147,
+    "h": 270
+   },
+   "pivot": {
+    "x": 0.513,
+    "y": 1.0
+   }
+  },
+  "base_6": {
+   "frame": {
+    "x": 327,
+    "y": 0,
+    "w": 184,
+    "h": 267
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 184,
+    "h": 267
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 184,
+    "h": 267
+   },
+   "pivot": {
+    "x": 0.39,
+    "y": 0.9998
+   }
+  },
+  "base_1": {
+   "frame": {
+    "x": 513,
+    "y": 0,
+    "w": 207,
+    "h": 260
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 207,
+    "h": 260
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 207,
+    "h": 260
+   },
+   "pivot": {
+    "x": 0.6727,
+    "y": 1.0314
+   }
+  },
+  "base_7": {
+   "frame": {
+    "x": 722,
+    "y": 0,
+    "w": 190,
+    "h": 248
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 190,
+    "h": 248
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 190,
+    "h": 248
+   },
+   "pivot": {
+    "x": 0.5153,
+    "y": 1.1353
+   }
+  },
+  "base_3": {
+   "frame": {
+    "x": 914,
+    "y": 0,
+    "w": 205,
+    "h": 235
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 205,
+    "h": 235
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 205,
+    "h": 235
+   },
+   "pivot": {
+    "x": 0.5606,
+    "y": 0.9988
+   }
+  },
+  "base_4": {
+   "frame": {
+    "x": 1121,
+    "y": 0,
+    "w": 228,
+    "h": 234
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 228,
+    "h": 234
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 228,
+    "h": 234
+   },
+   "pivot": {
+    "x": 0.4347,
+    "y": 1.0005
+   }
+  },
+  "base_2": {
+   "frame": {
+    "x": 1351,
+    "y": 0,
+    "w": 218,
+    "h": 210
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 218,
+    "h": 210
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 218,
+    "h": 210
+   },
+   "pivot": {
+    "x": 0.4686,
+    "y": 0.999
+   }
+  }
+ },
+ "meta": {
+  "image": "aliado_fonteles.png",
+  "size": {
+   "w": 2048,
+   "h": 274
+  },
+  "scale": "1"
+ }
+}

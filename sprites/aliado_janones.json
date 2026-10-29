@@ -1,0 +1,204 @@
+{
+ "frames": {
+  "base_3": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 182,
+    "h": 298
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 182,
+    "h": 298
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 182,
+    "h": 298
+   },
+   "pivot": {
+    "x": 0.5655,
+    "y": 1.0015
+   }
+  },
+  "base_1": {
+   "frame": {
+    "x": 184,
+    "y": 0,
+    "w": 200,
+    "h": 293
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 200,
+    "h": 293
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 200,
+    "h": 293
+   },
+   "pivot": {
+    "x": 0.3965,
+    "y": 1.0062
+   }
+  },
+  "base_5": {
+   "frame": {
+    "x": 386,
+    "y": 0,
+    "w": 193,
+    "h": 272
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 193,
+    "h": 272
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 193,
+    "h": 272
+   },
+   "pivot": {
+    "x": 0.4674,
+    "y": 0.9993
+   }
+  },
+  "base_8": {
+   "frame": {
+    "x": 581,
+    "y": 0,
+    "w": 147,
+    "h": 270
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 147,
+    "h": 270
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 147,
+    "h": 270
+   },
+   "pivot": {
+    "x": 0.4695,
+    "y": 1.0
+   }
+  },
+  "base_6": {
+   "frame": {
+    "x": 730,
+    "y": 0,
+    "w": 194,
+    "h": 266
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 194,
+    "h": 266
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 194,
+    "h": 266
+   },
+   "pivot": {
+    "x": 0.4556,
+    "y": 1.0014
+   }
+  },
+  "base_4": {
+   "frame": {
+    "x": 926,
+    "y": 0,
+    "w": 226,
+    "h": 226
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 226,
+    "h": 226
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 226,
+    "h": 226
+   },
+   "pivot": {
+    "x": 0.4018,
+    "y": 1.0018
+   }
+  },
+  "base_7": {
+   "frame": {
+    "x": 1154,
+    "y": 0,
+    "w": 178,
+    "h": 217
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 178,
+    "h": 217
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 178,
+    "h": 217
+   },
+   "pivot": {
+    "x": 0.4285,
+    "y": 1.3056
+   }
+  },
+  "base_2": {
+   "frame": {
+    "x": 1334,
+    "y": 0,
+    "w": 186,
+    "h": 180
+   },
+   "rotated": false,
+   "trimmed": false,
+   "sourceSize": {
+    "w": 186,
+    "h": 180
+   },
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 186,
+    "h": 180
+   },
+   "pivot": {
+    "x": 0.4622,
+    "y": 0.9989
+   }
+  }
+ },
+ "meta": {
+  "image": "aliado_janones.png",
+  "size": {
+   "w": 2048,
+   "h": 298
+  },
+  "scale": "1"
+ }
+}
